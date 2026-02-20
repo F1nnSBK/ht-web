@@ -30,12 +30,21 @@ body {
     justify-content: center;
     color: #111;
     overflow: hidden;
+    position: relative;
 }
 
-.container {
+/* Der klickbare Bereich */
+.logo-container {
     text-align: center;
-    animation: fade 1.8s ease-out forwards;
-    opacity: 0;
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+}
+
+.logo-container.blur-active {
+    filter: blur(8px);
+    transform: scale(0.98);
+    opacity: 0.3;
 }
 
 h1 {
@@ -52,6 +61,57 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 1.25em;
     color: #666;
+    margin-top: 10px;
+}
+
+/* Das echte Overlay */
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(249, 247, 242, 0.8); /* Match Body BG */
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s ease-in-out;
+    z-index: 10;
+    pointer-events: none; /* Klicks gehen durch, wenn inaktiv */
+}
+
+/* Aktivierungs-Zustand */
+.overlay-container.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.overlay-content {
+    text-align: center;
+    font-family: "HertschSans", sans-serif;
+}
+
+.overlay-line {
+    font-size: 0.45rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #111;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.overlay-tech {
+    font-size: 0.35rem;
+    letter-spacing: 0.4em;
+    color: #888;
+    margin-top: 25px;
+    display: block;
+    text-transform: uppercase;
 }
 
 footer {
@@ -60,9 +120,9 @@ footer {
     width: 100%;
     text-align: center;
     font-family: "HertschSans", sans-serif;
-    font-size: 0.65rem;
     letter-spacing: 0.4em;
     text-transform: uppercase;
+    z-index: 5;
 }
 
 footer a {
@@ -73,25 +133,48 @@ footer a {
     font-size: 0.25rem;
 }
 
-footer a:hover {
-    color: #000;
-}
+footer a:hover { color: #000; }
 
-@keyframes fade {
-    to { opacity: 1; }
-}
 </style>
 </head>
 
 <body>
-<div class="container">
+
+<div class="logo-container" id="logoTrigger">
     <h1>Hertsch</h1>
     <div class="sub">Technologies</div>
+</div>
+
+<div class="overlay-container" id="overlay">
+    <div class="overlay-content">
+        <span class="overlay-line">Mathematische Systemüberwachung</span>
+        <span class="overlay-line">Strategische KI-Entwicklung</span>
+        
+        <span class="overlay-tech">
+            Adaptive Algorithmen · Monitoring · Tech-Boutique Ravensburg
+        </span>
+    </div>
 </div>
 
 <footer>
     <a href="impressum.html">Impressum</a>
     <a href="datenschutz.html">Datenschutz</a>
 </footer>
+
+<script>
+    const trigger = document.getElementById('logoTrigger');
+    const overlay = document.getElementById('overlay');
+
+    trigger.addEventListener('click', () => {
+        overlay.classList.add('show');
+        trigger.classList.add('blur-active');
+    });
+
+    overlay.addEventListener('click', () => {
+        overlay.classList.remove('show');
+        trigger.classList.remove('blur-active');
+    });
+</script>
+
 </body>
 </html>
