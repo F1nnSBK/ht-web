@@ -1,150 +1,97 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hertsch Technologies</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hertsch Technologies</title>
+<link rel="icon" type="image/png" href="favicon.png">
 
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon.png">
+<style>
+@font-face {
+    font-family: "HertschSerif";
+    src: url("fonts/PlayfairDisplay-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
 
-    <style>
-        body {
-            /* "Fake White" / Bone / Ivory Paper */
-            background-color: #F9F7F2; 
-            margin: 0;
-            overflow: hidden;
-            cursor: crosshair;
-        }
+@font-face {
+    font-family: "HertschSans";
+    src: url("fonts/Inter-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+}
 
-        .font-hertsch {
-            font-family: 'Playfair Display', serif;
-            color: #1A1A1A;
-        }
+body {
+    margin: 0;
+    background: #F9F7F2;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    overflow: hidden;
+}
 
-        .font-tech {
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 1.2em;
-            color: #6B7280;
-        }
+.container {
+    text-align: center;
+    animation: fade 1.8s ease-out forwards;
+    opacity: 0;
+}
 
-        .fade-in {
-            animation: fadeIn 3s ease-in-out forwards;
-        }
+h1 {
+    font-family: "HertschSerif", serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+.sub {
+    font-family: "HertschSans", sans-serif;
+    font-size: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1.25em;
+    color: #666;
+}
 
-        @media (max-width: 640px) {
-            .font-tech { letter-spacing: 0.5em; font-size: 0.6rem; }
-            .font-hertsch { font-size: 3rem; }
-        }
-    </style>
+footer {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    font-family: "HertschSans", sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+}
+
+footer a {
+    color: #888;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: 0.3s ease;
+    font-size: 0.25rem;
+}
+
+footer a:hover {
+    color: #000;
+}
+
+@keyframes fade {
+    to { opacity: 1; }
+}
+</style>
 </head>
-<body 
-  x-data="{ 
-    x: 0, 
-    y: 0, 
-    showLegal: false,
-    veilOpacity: 0
-  }"
-  @mousemove.window="x = $event.clientX; y = $event.clientY"
->
 
-
-    <div class="pointer-events-none absolute inset-0 z-0 transition-opacity duration-1000"
-         :style="`background: radial-gradient(800px circle at ${x}px ${y}px, rgba(0,0,0,0.03), transparent 70%);` ">
-    </div>
-
-    <main class="relative z-10 h-screen w-screen flex flex-col items-center justify-center fade-in">
-        <div class="group text-center">
-            <h1 class="font-hertsch text-7xl md:text-9xl tracking-tight transition-all duration-1000">
-                Hertsch
-            </h1>
-            <div class="h-[0.5px] w-12 group-hover:w-64 bg-[#1A1A1A]/20 mx-auto transition-all duration-1000 mt-4 mb-6"></div>
-            <p class="font-tech uppercase text-[10px] md:text-xs translate-x-[0.6em]">
-                Technologies
-            </p>
-        </div>
-    </main>
-
-    <footer class="absolute bottom-12 w-full flex justify-center z-20 fade-in" style="animation-delay: 1.5s;">
-        <button @click="showLegal = !showLegal" class="font-tech text-[7px] text-gray-400 hover:text-black transition-colors uppercase tracking-[0.4em]">
-            Impressum
-        </button>
-    </footer>
-
-    <div 
-  x-show="showLegal"
-  x-transition.opacity.duration.700ms
-  x-init="$watch('showLegal', v => veilOpacity = v ? 1 : 0)"
-  class="fixed inset-0 z-30 overflow-hidden"
->
-    <!-- Cursor-follow Spotlight -->
-    <div 
-      class="absolute inset-0 transition-opacity duration-1000"
-      :style="`
-        background:
-          radial-gradient(
-            500px circle at ${x}px ${y}px,
-            rgba(0,0,0,0.08),
-            transparent 70%
-          );
-        opacity: ${veilOpacity};
-      `"
-    ></div>
-
-    <!-- Paper Veil -->
-    <div class="absolute inset-0 bg-[#F9F7F2]/95 backdrop-blur-[1px]"></div>
-
-    <!-- Content -->
-    <div 
-      class="relative z-10 h-full flex items-center justify-center"
-      @click.away="showLegal = false"
-    >
-        <div 
-          class="max-w-md text-[#1A1A1A] text-center
-                 font-tech text-[10px] leading-loose tracking-[0.22em]
-                 transform transition-all duration-[1200ms]"
-          :class="showLegal 
-            ? 'opacity-100 translate-y-0 scale-100' 
-            : 'opacity-0 translate-y-6 scale-[0.98]'"
-        >
-            <h2 class="font-hertsch text-xl mb-14 tracking-normal">
-              Hertsch Technologies UG (haftungsbeschränkt) i.G.
-            </h2>
-
-            <p class="mb-6">Systemarchitektur & Algorithmische Inferenz</p>
-
-            <p class="mb-14">
-              Finn Hertsch<br>
-              Wangen im Allgäu, Deutschland
-            </p>
-
-            <div class="h-px w-10 bg-black/20 mx-auto mb-14"></div>
-
-            <p class="text-gray-400 italic">
-              Diskrete Kooperationen nach Vereinbarung.
-            </p>
-
-            <button 
-              @click="showLegal = false"
-              class="mt-20 text-black/30 hover:text-black transition uppercase tracking-[0.35em]"
-            >
-              [ Schließen ]
-            </button>
-        </div>
-    </div>
+<body>
+<div class="container">
+    <h1>Hertsch</h1>
+    <div class="sub">Technologies</div>
 </div>
 
-
+<footer>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+</footer>
 </body>
 </html>
