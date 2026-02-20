@@ -7,6 +7,9 @@
 <link rel="icon" type="image/png" href="favicon.png">
 
 <style>
+/* Typografie für den exklusiven Vibe. 
+   Ned g'schimpft isch g'lobt g'nug. 
+*/
 @font-face {
     font-family: "HertschSerif";
     src: url("fonts/PlayfairDisplay-Regular.woff2") format("woff2");
@@ -23,19 +26,20 @@
 
 body {
     margin: 0;
-    background: #F9F7F2;
-    /* Nutzt die volle dynamische Höhe, erlaubt aber Scrollen */
+    background: #F9F7F2; /* Ein dezentes Cremeweiß, wie a guate Spätzlesoß */
     min-height: 100dvh; 
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #111;
-    /* Overflow hidden nur auf Desktop, auf Mobile lassen wir Scrollen zu */
     overflow-x: hidden;
     position: relative;
 }
 
-/* Hauptbereich nimmt den Platz ein und zentriert das Logo */
+/* ASCII-Vektor-Logik:
+   E[R_t | A_t] = θ * x_t 
+   Matrizen-Vibe für das Layout.
+*/
 .wrapper {
     flex: 1;
     display: flex;
@@ -53,6 +57,7 @@ body {
 }
 
 .logo-container.blur-active {
+    /* Wenn d'Leit klickt, wird's g'scheit */
     filter: blur(8px);
     transform: scale(0.98);
     opacity: 0.3;
@@ -83,7 +88,9 @@ h1 {
     }
 }
 
-/* Das Overlay bleibt fixiert über dem gesamten Viewport */
+/* Das Overlay: 
+   Hier kommt die Magie. Contextual Bandits & MRL.
+*/
 .overlay-container {
     position: fixed;
     top: 0;
@@ -133,14 +140,13 @@ h1 {
     text-transform: uppercase;
 }
 
-/* Footer am Ende des Dokuments */
 footer {
     width: 100%;
     text-align: center;
     font-family: "HertschSans", sans-serif;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-    padding-bottom: 40px; /* Der gewünschte Platz nach unten */
+    padding-bottom: 40px; 
     margin-top: 20px;
     z-index: 5;
 }
@@ -158,7 +164,7 @@ footer a {
         display: flex;
         flex-direction: column;
         gap: 15px;
-        padding-bottom: 60px; /* Mehr Platz für Daumen-Navigation auf Mobile */
+        padding-bottom: 60px;
     }
 }
 
@@ -184,7 +190,8 @@ footer a:hover { color: #000; }
         <span class="overlay-tech">
             Adaptive Algorithmen · Monitoring · Tech-Boutique Ravensburg
         </span>
-    </div>
+        
+        </div>
 </div>
 
 <footer>
@@ -193,15 +200,22 @@ footer a:hover { color: #000; }
 </footer>
 
 <script>
+    /* Interaktions-Logik: 
+       Wer klickt, der sieht, was dahinter steckt. 
+       A bissle Schwoba-Power.
+    */
     const trigger = document.getElementById('logoTrigger');
     const overlay = document.getElementById('overlay');
 
     trigger.addEventListener('click', () => {
+        // Overlay aufmacha
         overlay.classList.add('show');
         trigger.classList.add('blur-active');
+        console.log("Käpsele-Modus aktiviert. System läuft stabil.");
     });
 
     overlay.addEventListener('click', () => {
+        // Und wieder zuamacha
         overlay.classList.remove('show');
         trigger.classList.remove('blur-active');
     });
