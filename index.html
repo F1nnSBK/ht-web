@@ -33,12 +33,12 @@ body {
     position: relative;
 }
 
-/* Der klickbare Bereich */
 .logo-container {
     text-align: center;
     cursor: pointer;
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     z-index: 1;
+    padding: 0 20px;
 }
 
 .logo-container.blur-active {
@@ -49,7 +49,7 @@ body {
 
 h1 {
     font-family: "HertschSerif", serif;
-    font-size: clamp(4rem, 14vw, 10rem);
+    font-size: clamp(3rem, 12vw, 8rem);
     font-weight: 600;
     margin: 0;
     letter-spacing: -0.02em;
@@ -59,12 +59,24 @@ h1 {
     font-family: "HertschSans", sans-serif;
     font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 2.5em;
+    letter-spacing: 2.5em; /* Desktop Vibe */
     color: #666;
     margin-top: 10px;
+    /* Verhindert Umbruch bei extremem Spacing */
+    white-space: nowrap; 
 }
 
-/* Das echte Overlay */
+/* Mobile Optimierung für Spacing */
+@media (max-width: 600px) {
+    .sub {
+        letter-spacing: 1.2em; /* Reduziert für mobile Bildschirme */
+        font-size: 0.5rem;
+    }
+    h1 {
+        font-size: clamp(2.5rem, 15vw, 4rem);
+    }
+}
+
 .overlay-container {
     position: absolute;
     top: 0;
@@ -75,16 +87,15 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgba(249, 247, 242, 0.8); /* Match Body BG */
-    backdrop-filter: blur(2px);
+    background: rgba(249, 247, 242, 0.85);
+    backdrop-filter: blur(3px);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.8s ease-in-out;
+    transition: all 0.6s ease-in-out;
     z-index: 10;
-    pointer-events: none; /* Klicks gehen durch, wenn inaktiv */
+    pointer-events: none;
 }
 
-/* Aktivierungs-Zustand */
 .overlay-container.show {
     opacity: 1;
     visibility: visible;
@@ -94,24 +105,27 @@ h1 {
 .overlay-content {
     text-align: center;
     font-family: "HertschSans", sans-serif;
+    padding: 0 30px; /* Schutzabstand zum Rand */
 }
 
 .overlay-line {
-    font-size: 0.9rem;
+    font-size: clamp(0.6rem, 3vw, 0.9rem);
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: #111;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     display: block;
+    line-height: 1.4;
 }
 
 .overlay-tech {
-    font-size: 0.7rem;
-    letter-spacing: 0.4em;
+    font-size: clamp(0.5rem, 2.5vw, 0.7rem);
+    letter-spacing: 0.2em;
     color: #888;
-    margin-top: 25px;
+    margin-top: 30px;
     display: block;
     text-transform: uppercase;
+    line-height: 1.6;
 }
 
 footer {
@@ -128,9 +142,17 @@ footer {
 footer a {
     color: #888;
     text-decoration: none;
-    margin: 0 15px;
+    margin: 0 10px;
     transition: 0.3s ease;
     font-size: 0.5rem;
+}
+
+@media (max-width: 400px) {
+    footer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
 }
 
 footer a:hover { color: #000; }
